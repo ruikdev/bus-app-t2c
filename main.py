@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 
 def test_api(stop_id):
-    url = f"http://172.252.236.136:2064/{stop_id}"
+    url = f"http://172.252.236.136:2064/horaire/{stop_id}"
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -21,7 +21,7 @@ def test_api(stop_id):
 def afficher_horaires(data):
     fenetre_resultats = tk.Toplevel()
     fenetre_resultats.title("Résultats")
-    fenetre_resultats.geometry("400x300")
+    fenetre_resultats.geometry("500x300")
 
     text_widget = tk.Text(fenetre_resultats, wrap=tk.WORD)
     text_widget.pack(expand=True, fill=tk.BOTH)
