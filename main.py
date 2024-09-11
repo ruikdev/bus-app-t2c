@@ -12,9 +12,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 import pyperclip
 
-# Url base des directions
 dir_url = 'http://www.t2c.fr/admin/synthese?SERVICE=page&p=17732927961956390&noline='
-# Url base des arrêts
 stop_url = 'http://www.t2c.fr/admin/synthese?SERVICE=page&p=17732927961956392&numeroroute='
 
 lines = {
@@ -145,11 +143,6 @@ def horaire_bus():
     button_send.pack(pady=10)
 
 
-import tkinter as tk
-from tkinter import ttk
-import pyperclip  # N'oubliez pas d'installer cette bibliothèque avec pip install pyperclip
-
-
 def afficher_id_arrets():
     with open('t2c_data.json', 'r', encoding='utf-8') as json_file:
         data = json.load(json_file)
@@ -158,15 +151,12 @@ def afficher_id_arrets():
     fenetre_arrets.title("ID des arrêts")
     fenetre_arrets.geometry("600x400")
 
-    # Créer un cadre pour contenir le Treeview et la barre de défilement
     frame = tk.Frame(fenetre_arrets)
     frame.pack(expand=True, fill=tk.BOTH)
 
-    # Créer la barre de défilement
     scrollbar = ttk.Scrollbar(frame)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-    # Créer le Treeview avec la barre de défilement
     tree = ttk.Treeview(frame, columns=('Ligne', 'Direction', 'Arrêt', 'ID'), show='headings',
                         yscrollcommand=scrollbar.set)
     tree.heading('Ligne', text='Ligne')
@@ -179,7 +169,6 @@ def afficher_id_arrets():
     tree.column('ID', width=150)
     tree.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-    # Configurer la barre de défilement
     scrollbar.config(command=tree.yview)
 
     def copier_id(event):
@@ -188,7 +177,6 @@ def afficher_id_arrets():
         pyperclip.copy(id_arret)
         tk.messagebox.showinfo("Copié", f"L'ID {id_arret} a été copié dans le presse-papiers.")
 
-    # Ajouter un bouton "Copier" pour chaque ligne
     tree.bind("<Double-1>", copier_id)
 
     for line in data['lines']:
@@ -197,7 +185,6 @@ def afficher_id_arrets():
                 tree.insert('', 'end',
                             values=(line['line_name'], direction['dir_name'], stop['stop_name'], stop['stop_num']))
 
-    # Ajouter une étiquette d'instructions
     instructions = tk.Label(fenetre_arrets, text="Double-cliquez sur une ligne pour copier l'ID de l'arrêt")
     instructions.pack(pady=5)
 
